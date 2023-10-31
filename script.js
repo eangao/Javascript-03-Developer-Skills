@@ -90,77 +90,131 @@
 /////////////////////////////////////////////////////////
 // Using Google, StackOverflow and MDN
 /////////////////////////////////////////////////////////
-// PROBLEM:
-// we work for a company building a smart homethermometer. Our most recent task is this: "Given an array of temperatures of one day, calculate the temperature amplitude. Keep in mind that sometimes that sometimes there might be a sensor error."
+// // PROBLEM:
+// // we work for a company building a smart homethermometer. Our most recent task is this: "Given an array of temperatures of one day, calculate the temperature amplitude. Keep in mind that sometimes that sometimes there might be a sensor error."
 
-const temperatures = [3, -2, -6, -1, 'error', 9, 13, 17, 15, 14, 9, 5];
+// const temperatures = [3, -2, -6, -1, 'error', 9, 13, 17, 15, 14, 9, 5];
 
-// 1) Understanding the problem
-// - What is temp amplitude? Answer: difference beteen highest and lowest temp
-// - Hos to compute max and min temperatures?
-// - What's a sensor error? and what to do?
+// // 1) Understanding the problem
+// // - What is temp amplitude? Answer: difference beteen highest and lowest temp
+// // - Hos to compute max and min temperatures?
+// // - What's a sensor error? and what to do?
 
-// 2) Breaking up into sub-problems
-// - How to ignore errors?
-// - Find max value in temp array
-// - Find min value in temp array
-// - Subtract min from max (amplitude) and return it
+// // 2) Breaking up into sub-problems
+// // - How to ignore errors?
+// // - Find max value in temp array
+// // - Find min value in temp array
+// // - Subtract min from max (amplitude) and return it
 
-// ask in google
-// javascript get max value in array
-const calcTempAmplitude = function (temps) {
-  let max = temps[0];
-  let min = temps[0];
+// // ask in google
+// // javascript get max value in array
+// const calcTempAmplitude = function (temps) {
+//   let max = temps[0];
+//   let min = temps[0];
 
-  for (let i = 0; i < temps.length; i++) {
-    const curTemp = temps[i];
+//   for (let i = 0; i < temps.length; i++) {
+//     const curTemp = temps[i];
 
-    if (typeof curTemp !== 'number') continue;
+//     if (typeof curTemp !== 'number') continue;
 
-    if (curTemp > max) max = curTemp;
-    if (curTemp < min) min = curTemp;
-  }
-  console.log(max, min);
-  return max - min;
+//     if (curTemp > max) max = curTemp;
+//     if (curTemp < min) min = curTemp;
+//   }
+//   console.log(max, min);
+//   return max - min;
+// };
+
+// // calcTempAmplitude([100, 3, 5, 8, 11]);
+// const amplitude = calcTempAmplitude(temperatures);
+// console.log(amplitude);
+
+// // But now let's suppose that after we're done
+// // with our solution, the project manager
+// // tells us that the function
+// // should actually receive two arrays of temperatures
+// // and not just one.
+// // But the rest of the function should work just the same.
+// // Okay, so well, let's quickly write that problem down here.
+// // So problem two,
+// // function should now receive two arrays of temperatures.
+// // So let's try to again, understand the problem.
+// // So we can probably ask the question when we have two arrays,
+// // do we need to implement the same functionality twice?
+
+// // PROBLEM 2:
+// //Function should now recieve 2 arrays of temps
+
+// // 1) Understanding the problem
+// // - with 2 arrays, should we implement functionality twice? No! Just merge two arrays
+
+// // 2) Breaking up into sub-problems
+// // - Merge 2 arrays?
+
+// // search in google
+// //javascrip Merge 2 arrays
+// // mdn
+// // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/concat
+
+// const calcTempAmplitudeNew = function (t1, t2) {
+//   const temps = t1.concat(t2);
+//   console.log(temps);
+
+//   let max = temps[0];
+//   let min = temps[0];
+
+//   for (let i = 0; i < temps.length; i++) {
+//     const curTemp = temps[i];
+
+//     if (typeof curTemp !== 'number') continue;
+
+//     if (curTemp > max) max = curTemp;
+//     if (curTemp < min) min = curTemp;
+//   }
+//   console.log(max, min);
+//   return max - min;
+// };
+
+// // calcTempAmplitude([100, 3, 5, 8, 11]);
+// const amplitudeNew = calcTempAmplitudeNew([3, 5, 1], [9, 0, 5]);
+// console.log(amplitudeNew);
+
+////////////////////////////////////////////////////////////////////
+// Debugging with the Console and Breakpoints
+////////////////////////////////////////////////////////////////////
+
+const measureKelvin = function () {
+  const measurement = {
+    type: 'temp',
+    unit: 'celcius',
+
+    // C) FIX
+    // value: Number(prompt('Degrees celcius:')),
+    value: 10,
+  };
+
+  // B) FIND
+  // console.log(measurement);
+  console.table(measurement);
+
+  console.log(measurement.value);
+  // console.warn(measurement.value);
+  // console.error(measurement.value);
+
+  const kelvin = measurement.value + 273;
+  return kelvin;
 };
 
-// calcTempAmplitude([100, 3, 5, 8, 11]);
-const amplitude = calcTempAmplitude(temperatures);
-console.log(amplitude);
+// A) Identify
+console.log(measureKelvin());
 
-// But now let's suppose that after we're done
-// with our solution, the project manager
-// tells us that the function
-// should actually receive two arrays of temperatures
-// and not just one.
-// But the rest of the function should work just the same.
-// Okay, so well, let's quickly write that problem down here.
-// So problem two,
-// function should now receive two arrays of temperatures.
-// So let's try to again, understand the problem.
-// So we can probably ask the question when we have two arrays,
-// do we need to implement the same functionality twice?
+// Using a debugger
 
-// PROBLEM 2:
-//Function should now recieve 2 arrays of temps
-
-// 1) Understanding the problem
-// - with 2 arrays, should we implement functionality twice? No! Just merge two arrays
-
-// 2) Breaking up into sub-problems
-// - Merge 2 arrays?
-
-// search in google
-//javascrip Merge 2 arrays
-// mdn
-// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/concat
-
-const calcTempAmplitudeNew = function (t1, t2) {
+const calcTempAmplitudeBug = function (t1, t2) {
   const temps = t1.concat(t2);
   console.log(temps);
 
-  let max = temps[0];
-  let min = temps[0];
+  let max = 0;
+  let min = 0;
 
   for (let i = 0; i < temps.length; i++) {
     const curTemp = temps[i];
@@ -174,6 +228,7 @@ const calcTempAmplitudeNew = function (t1, t2) {
   return max - min;
 };
 
-// calcTempAmplitude([100, 3, 5, 8, 11]);
-const amplitudeNew = calcTempAmplitudeNew([3, 5, 1], [9, 0, 5]);
-console.log(amplitudeNew);
+const amplitudeBug = calcTempAmplitudeBug([3, 5, 1], [9, 4, 5]);
+
+// A) Identify
+console.log(amplitudeBug);
